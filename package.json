@@ -1,0 +1,25 @@
+{
+  "name": "Densetsuno-bot-discord",
+  "version": "1.0.0",
+  "description": "bot densetsuno",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "bierque jason",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^10.0.1",
+    "fs-extra": "^2.0.0",
+    "google": "^2.1.0",
+    "google-translate-api": "^2.2.2",
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "malapi": "0.0.3",
+    "node-opus": "^0.2.4",
+    "opusscript": "0.0.1",
+    "ping-pong": "0.0.4",
+    "random-anime-wallpapers": "^1.1.0",
+    "weather-js": "^1.0.2"
+  }
+}
