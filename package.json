@@ -2,7 +2,7 @@
   "name": "Densetsuno-bot-discord",
   "version": "1.0.0",
   "description": "bot densetsuno",
-  "main": "index.js",
+  "main": "denset.js ",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
