@@ -19,6 +19,7 @@ var prefix = "$";
 var mention = "<@!255828814041448448>";
 var mentionid = "<@!"
 var status = prefix + "aide";
+var google = require('google'); // Permet de faire une recherche sur Facebook
 
 
 
@@ -151,6 +152,22 @@ client.on("message", message => {
       })
 
     }
+    //Faisons une recherche google ! 
+    google.resultsPerPage = 1; // je veux qu'une seul page
+    var nextCounter = 0;
+    google.lang = 'fr'; // Je veux des recherche en Fr
+    google.tld = 'fr'; // Pareille
+    	if (message.content.startsWith(prefix + 'g')){
+		    var recherchegoogle = message.content.substr(2);
+		    google(recherchegoogle, function (err, res){
+        if (err) console.error(err)
+ 
+        for (var i = 0; i < res.links.length; ++i) {
+          var link = res.links[i];
+          message.channel.sendMessage(link.title + ' - ' + link.href+ "\n" + link.description + "\n");
+        }
+      })
+	  }
 
     // Faisons un peu de traduction :) 
     if (message.content.startsWith(prefix + 'trad')){
