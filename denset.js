@@ -8,7 +8,7 @@
 const Discord = require("discord.js"); // Pour se connecter à Discord
 const client = new Discord.Client();   // Ceci est pour les constantes que nous utiliserons pour lancer les commandes
 const weather = require("weather-js"); // Ceci permettra d'afficher la météo 
-const token = "MjcxMzE0NTE0NDEzMDkyODY0.C2fU9Q.P7FDWBLLOhl5WyoZZAoqknX3WZg"; // Très important, ceci vous permettra de vous connecté au bot
+//const token = "MjcxMzE0NTE0NDEzMDkyODY0.C2fU9Q.P7FDWBLLOhl5WyoZZAoqknX3WZg"; // Très important, ceci vous permettra de vous connecté au bot
 const request = require('superagent'); // Besoin
 const Anime = require('malapi').Anime; // My anime list
 var fs = require('fs-extra'); // Petite amélioration de fs de base
@@ -208,6 +208,12 @@ if (message.content.startsWith(prefix + 'radio 1')){
 })
 
 //identification
-client.login(token)
+var dt = process.env.DISCORD_TOKEN || process.argv[2];
+
+if (!dt) {
+    console.log('Mjc5OTIyMzQxNDc4MTM3ODU2.C4B5hA.16zG9SKeRGGfBX2YwFswmGm_hlk');
+}
+
+client.login(dt);
 
 
