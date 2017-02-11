@@ -20,6 +20,10 @@ var mention = "<@!255828814041448448>";
 var mentionid = "<@!"
 var status = prefix + "aide";
 var google = require('google'); // Permet de faire une recherche sur Facebook
+const getter = require('booru-getter'); //nsfw
+const LeagueofLegends = require('leagueoflegends-api'); // Pour le jeu League of Legends
+const lol = new LeagueofLegends('RGAPI-586ab7f1-3860-4d15-b32e-f43e98f8ee53', 'euw'); // ma clé pour le jeu
+
 
 
 
@@ -51,8 +55,14 @@ member.guild.defaultChannel.sendMessage(`${member.user.username} a quitté le se
 /* Codons ! */ 
 
 client.on("message", message => {
-  if (message.content.startsWith(prefix + 'aide')){
-      message.channel.sendMessage('**Bienvenu sur l\' aide du bot**' +
+	if (message.content.startsWith('$boru')){
+	    var gelborry = message.content.substr(5);
+	    getter.getRandomLewd(gelborry, (url)=>{
+   	    message.channel.sendMessage("http:"+url);
+	    })
+	}
+       if (message.content.startsWith(prefix + 'aide')){
+           message.channel.sendMessage('**Bienvenu sur l\' aide du bot**' +
                                   '\n**' + prefix + 'avatar** : Affiche l\'avatar' +
                                   '\n**' + prefix + 'météo <Ville> <Pays>** : Affiche la météo de votre ville (si introuvable, ajouter pays' + 
                                   '\n**' + prefix + 'join** : Rejoint le vocal' + 
@@ -64,7 +74,11 @@ client.on("message", message => {
                                   '\n**' + prefix + 'anime <Nom>** : Donne les infos du mangas (FR bêta)' + 
                                   '\n**' + prefix + 'trad <phrase>** : Traduit de l\'Anglais au Français (FR bêta)' + 
                                   '\n**' + prefix + 'img <Tags>** : Affiche une images celon votre Tags (bêta)' +
-                                  '\n';
+				  '\n**' + prefix + 'boru** : Affiche une images celon votre Tags boru (nsfw)' +
+                                  '\n'   +
+				  '\n**Commande Jeu : **' +
+                                  '\n**' + prefix + 'lolid <identifiant>** : Retrouver le pseudo par son id' +
+                                  '\n**' + prefix + 'lolniv <pseudo>** : Donne son niveau');
     }
       // Voir son avatar
     if (message.content.startsWith(prefix + 'avatar')){
@@ -152,6 +166,7 @@ client.on("message", message => {
       })
 
     }
+	       
     //Faisons une recherche google ! 
     google.resultsPerPage = 1; // je veux qu'une seul page
     var nextCounter = 0;
@@ -206,12 +221,33 @@ if (message.content.startsWith(prefix + 'radio 1')){
     })
   }
 })
+/* League Of Legends */ 
 
+client.on("message", message => {
+  // Retrouver quelqu'un par son id
+  if (message.content.startsWith(prefix + 'lolid')){
+        var invocateur = message.content.substr(6);
+          lol.findSummonerById(invocateur).then((result) =>{ 
+            let key = Object.keys(result)[0];
+            message.channel.sendMessage("Nom de l'invocateur : " + result[key].name);
+          });
+    }
+    // Connaitre le niveau du joueur
+    if (message.content.startsWith(prefix + 'lolniv')){
+      var invocateur = message.content.substr(7);
+          lol.findSummoner(invocateur).then((result) =>{ 
+            let key = Object.keys(result)[0];
+            message.channel.sendMessage(invocateur + " lvl : " + result[key].summonerLevel);
+          });
+    }
+
+
+})
 //identification
 var dt = process.env.DISCORD_TOKEN || process.argv[2];
 
 if (!dt) {
-    console.log('Mjc5OTIyMzQxNDc4MTM3ODU2.C4B5hA.16zG9SKeRGGfBX2YwFswmGm_hlk');
+    console.log('votretoken');
 }
 
 client.login(dt);
